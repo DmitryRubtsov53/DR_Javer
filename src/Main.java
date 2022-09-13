@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Домашнее задание Циклы - Повышенная сложность");
+        System.out.println("Домашние задания - Повышенная сложность");
 
-        System.out.println(" ");
+        System.out.println("Тема: Циклы");
         System.out.println("Задание 4 - Ping pong");
 
                 for (int i = 1; i <= 30; i++) {
@@ -26,6 +26,19 @@ public class Main {
             x = tmp;
             i++;
             System.out.print(y + " ");
+        }
+        System.out.println("Тема: Массивы");
+        System.out.println("Задание 6 - Последовательность Фибоначи с использованием массива");
+
+        long[] fib = new long[64]; // размер массива равен числу клеток на шахматной доске
+        fib[1] = 1; // второе число массива
+        System.out.print(fib[0] + " " + fib[1] + " ");
+
+        int j = 2;
+        while ( j < fib.length - 1 ) {
+            fib[j] = fib[j-2] + fib[j-1];
+            System.out.print(fib[j] + " ");
+            j++;
         }
     }
 }
