@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Домашние задания - Повышенная сложность");
+        System.out.println("Домашние задания * Повышенная сложность");
 
         System.out.println("Тема: Циклы");
         System.out.println("Задание 4 - Ping pong");
