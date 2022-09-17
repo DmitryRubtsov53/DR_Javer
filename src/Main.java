@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Домашние задания * Повышенная сложность");
@@ -40,5 +41,35 @@ public class Main {
             System.out.print(fib[j] + " ");
             j++;
         }
+        System.out.println();
+        System.out.println("Задача 2 - Найти минимальную и максимальную трату в день.");
+
+        int[] arr = generateRandomArray();  // Вызов внешнего по отношению к Main метода !!!
+
+        Arrays.sort(arr);
+        // Для себя - Распечатаем отсортированный по возрастанию массив для сравнения с MAX и MIN:
+        System.out.println(Arrays.toString(arr));
+        /* Вариант 1. С помощью сортировки.
+        int maxTrata = arr[arr.length -1], minTrata = arr[0];
+        System.out.println("Максимальная сумма трат за день составила " + maxTrata + " рублей");
+        System.out.println("Минимальная сумма трат за день составила " + minTrata + " рублей");
+        */
+        // Вариант 2. Классическим перебором элементов с сравнением.
+        int maxEl = 0, minEl = 200_000;  // Переменные для хранения значений макс-ого и мин-ого значения элемента массива.
+        for (int k = 0; k < arr.length; k++) {
+            if (arr[k] > maxEl)  maxEl = arr[k];
+            if (arr[k] < minEl)  minEl = arr[k];
+        }
+        System.out.println("Максимальная сумма трат в день составила " + maxEl + " рублей");
+        System.out.println("Минимальная сумма трат в день составила " + minEl + " рублей");
+
+    }   // скобка закрывает метод Main !!!
+    public static int[] generateRandomArray() {
+        java.util.Random random = new java.util.Random();
+        int[] arr = new int[30];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(100_000) + 100_000;
+        }
+        return arr;
     }
 }
