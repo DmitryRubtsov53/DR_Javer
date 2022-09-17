@@ -63,7 +63,40 @@ public class Main {
         System.out.println("Максимальная сумма трат в день составила " + maxEl + " рублей");
         System.out.println("Минимальная сумма трат в день составила " + minEl + " рублей");
 
-    }   // скобка закрывает метод Main !!!
+        System.out.println();
+        System.out.println("Задача 5 ПС Массивы2 - 2-х мерный массив 3х3");
+
+        int [][] matrix = new int[3][3];
+        // Заполняем диагонали единицами:
+        for (int a = 0; a < 3; a++)
+            for (int b = 0; b < 3; b++) {
+                if ((a % 2 == 0 && b % 2 == 0) || (a % 2 != 0 && b % 2 != 0)) matrix[a][b] = 1;
+            }
+        // Печатаем массив:
+        for (int[] row : matrix) {
+            for (int column : row) {
+                System.out.print(column + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println("Задача 8 ПС Массивы2 - Найти в массиве пары чисел с суммой -2");
+        int [] cat = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
+        Arrays.sort(cat);
+        System.out.print(Arrays.toString(cat));
+        int[] arrTreb = new int[2]; // массив из 2-х чисел с суммой -2
+        int tmp = cat[i];
+        for (i = 0; i < 10; i++) {
+            if (tmp == cat[i]) continue;
+            if (tmp + cat[i] == -2) {
+                for (j = 0; j < 1; j++) {
+                    arrTreb[j] = cat[i];
+                    System.out.print(arrTreb[j] + " ");
+                }
+            }
+        }
+
+    }   // ********* скобка закрывает метод Main !!! ***********************************************************
     public static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
         int[] arr = new int[30];
@@ -72,4 +105,4 @@ public class Main {
         }
         return arr;
     }
-}
+} // ********** скобка закрывает public class Main **********************************************************
