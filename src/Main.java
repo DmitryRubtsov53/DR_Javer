@@ -82,19 +82,29 @@ public class Main {
         System.out.println();
         System.out.println("Задача 8 ПС Массивы2 - Найти в массиве пары чисел с суммой -2");
         int [] cat = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
-        Arrays.sort(cat);
-        System.out.print(Arrays.toString(cat));
-        int[] arrTreb = new int[2]; // массив из 2-х чисел с суммой -2
-        int tmp = cat[i];
-        for (i = 0; i < 10; i++) {
-            if (tmp == cat[i]) continue;
-            if (tmp + cat[i] == -2) {
-                for (j = 0; j < 1; j++) {
-                    arrTreb[j] = cat[i];
-                    System.out.print(arrTreb[j] + " ");
+        //Arrays.sort(cat);
+        //System.out.print(Arrays.toString(cat));
+        System.out.println();
+        //int[] arrTr = new int[2]; // требуемый массив из 2-х чисел с суммой -2
+        //int tmp = cat[0];
+
+        for (int s = 0; s < 10; s++) {
+            for (int z = 1; z < 10; z++) {
+                if (cat[s] + cat[z] == -2) {
+                    //arrTr[0] = cat[z];
+                    System.out.println(cat[s] + " " + cat[z]);
                 }
             }
         }
+        /*  for (z = 0; z <10; z++) {
+            if (tmp == cat[z]) continue;
+            if (tmp + cat[z] == -2) {
+                for (int j = 0; j < 2; j++) {
+                    arrTr[j] = cat[z];
+                    System.out.print(arrTr[j] + " ");
+                }
+            }
+         } */
 
     }   // ********* скобка закрывает метод Main !!! ***********************************************************
     public static int[] generateRandomArray() {
