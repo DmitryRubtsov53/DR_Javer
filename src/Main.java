@@ -82,29 +82,20 @@ public class Main {
         System.out.println();
         System.out.println("Задача 8 ПС Массивы2 - Найти в массиве пары чисел с суммой -2");
         int [] cat = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
-        //Arrays.sort(cat);
-        //System.out.print(Arrays.toString(cat));
+        Arrays.sort(cat);
+        System.out.print(Arrays.toString(cat));
         System.out.println();
-        //int[] arrTr = new int[2]; // требуемый массив из 2-х чисел с суммой -2
-        //int tmp = cat[0];
-
+        int [] arrTr = new int[2];
         for (int s = 0; s < 10; s++) {
-            for (int z = 1; z < 10; z++) {
+
+            for (int z = 0; z < 10; z++) {
                 if (cat[s] + cat[z] == -2) {
-                    //arrTr[0] = cat[z];
-                    System.out.println(cat[s] + " " + cat[z]);
+                   arrTr[0] = cat[s]; arrTr[1] = cat[z];
                 }
             }
+
         }
-        /*  for (z = 0; z <10; z++) {
-            if (tmp == cat[z]) continue;
-            if (tmp + cat[z] == -2) {
-                for (int j = 0; j < 2; j++) {
-                    arrTr[j] = cat[z];
-                    System.out.print(arrTr[j] + " ");
-                }
-            }
-         } */
+        System.out.println(arrTr[0] + " " + arrTr[1]);
 
     }   // ********* скобка закрывает метод Main !!! ***********************************************************
     public static int[] generateRandomArray() {
