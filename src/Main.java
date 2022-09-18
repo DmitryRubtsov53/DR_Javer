@@ -87,7 +87,7 @@ public class Main {
         System.out.println();
         for (int s = 0; s < cat.length; s++) {
 
-            for (int z = s; z < cat.length; z++) {   // важно ! если написать z = 0; будет другой результат !
+            for (int z = s + 1; z < cat.length; z++) {   // важно ! если написать z = 0; будет другой результат !
                 if (cat[s] + cat[z] == -2) {
                     System.out.println(cat[s] + " " + cat[z]);
                     break;
