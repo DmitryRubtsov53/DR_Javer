@@ -94,7 +94,12 @@ public class Main {
                 }
             }
         }
-
+//------------------------------------------------------------------------------------------------
+        Cat kisa = new Cat ("murzik");
+//        kisa.name = "kisa";
+//        kisa.age = 5;
+        System.out.println(kisa.name + " " + kisa.age);
+        Cat kot = new Cat("Туз",3);
 
     }   // ********* скобка закрывает метод Main !!! ***********************************************************
     public static int[] generateRandomArray() {
@@ -105,4 +110,5 @@ public class Main {
         }
         return arr;
     }
+
 } // ********** скобка закрывает public class Main **********************************************************
