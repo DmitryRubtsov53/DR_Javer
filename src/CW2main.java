@@ -1,9 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class CW2main {

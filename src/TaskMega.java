@@ -17,7 +17,6 @@ public class TaskMega {
 //        this.id = counter;
 //        counter++;
 //    }
-
     public Integer getId() { return id;
     }
     public static int getCounter() { return counter;

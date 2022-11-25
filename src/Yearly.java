@@ -12,7 +12,6 @@ public class Yearly extends Task {
 //              return this.dataActivity.toLocalDate().equals(localDate)
 //                  || this.dataActivity.toLocalDate().plusYears(1).equals(localDate);
 //    }
-
     @Override
     public void periodicity() {
 

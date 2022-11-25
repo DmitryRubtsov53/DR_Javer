@@ -83,7 +83,6 @@ public abstract class Task {
     // localDate - дата дня, для которого нужен список дел.
     public abstract void periodicity();
 
-
 }
 
 
