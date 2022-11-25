@@ -8,10 +8,10 @@ public class OneOff extends Task {
         super(taskName,descript, type, dataActivity, periodicity);
     }
 
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//        return this.dataActivity.toLocalDate().equals(localDate);
-//    }
+    @Override
+    public boolean isTaskForDate(LocalDate localDate) {
+        return this.dataActivity.toLocalDate().equals(localDate);
+    }
 
     @Override
     public void periodicity() {

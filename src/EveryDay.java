@@ -7,11 +7,11 @@ public class EveryDay extends Task {
         super(taskName, descript, type, dataActivity, periodicity);
     }
 
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//            return this.dataActivity.toLocalDate().isBefore(localDate)
-//                || this.dataActivity.toLocalDate().equals(localDate);
-//    }
+    @Override
+    public boolean isTaskForDate(LocalDate localDate) {
+            return this.dataActivity.toLocalDate().isBefore(localDate)
+                || this.dataActivity.toLocalDate().equals(localDate);
+    }
 
     @Override
     public void periodicity() {

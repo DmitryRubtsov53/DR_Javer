@@ -8,12 +8,12 @@ public class Monthly extends Task {
         super(taskName, descript, type, dataActivity, periodicity);
     }
 
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//
-//        return this.dataActivity.toLocalDate().equals(localDate)
-//                || this.dataActivity.toLocalDate().plusMonths(1).equals(localDate);
-//    }
+    @Override
+    public boolean isTaskForDate(LocalDate localDate) {
+
+        return this.dataActivity.toLocalDate().equals(localDate)
+                || this.dataActivity.toLocalDate().plusMonths(1).equals(localDate);
+    }
 
     @Override
     public void periodicity() {

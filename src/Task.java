@@ -79,7 +79,7 @@ public abstract class Task {
         return Objects.hash(taskName, descript, type, dataActivity, periodicity);
     }
 
-    // public abstract boolean isTaskForTomorrow(LocalDate localDate);
+     public abstract boolean isTaskForDate(LocalDate localDate);
     // localDate - дата дня, для которого нужен список дел.
     public abstract void periodicity();
 

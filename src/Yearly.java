@@ -7,11 +7,11 @@ public class Yearly extends Task {
     public Yearly(String taskName, String descript, String type, LocalDateTime dataActivity, String periodicity) {
         super(taskName, descript, type, dataActivity, periodicity);
     }
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//              return this.dataActivity.toLocalDate().equals(localDate)
-//                  || this.dataActivity.toLocalDate().plusYears(1).equals(localDate);
-//    }
+    @Override
+    public boolean isTaskForDate(LocalDate localDate) {
+              return this.dataActivity.toLocalDate().equals(localDate)
+                  || this.dataActivity.toLocalDate().plusYears(1).equals(localDate);
+    }
     @Override
     public void periodicity() {
 

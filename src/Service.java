@@ -144,11 +144,11 @@ public class Service {
     }
 
     // п.3 Меню: Получить задачи на указанный день ......... ....................................
-    public static void toGetListTasks(Scanner scanner) {  // Получение списка задачи на заданную дату.
-        System.out.print("Введите дату (yyyy-MM-dd) для получения на неё списка задач: ");
+    public static LocalDate toGetListTasks(Scanner scanner) {  // Получение списка задачи на заданную дату.
+        System.out.print("Введите дату (yyyy-MM-dd) для получения списка задач: ");
         LocalDate localDate = LocalDate.parse(scanner.nextLine());
-        // ДАЁТ ОШИБКУ ПРИ ПЕРЕВОДЕ СТРОКИ В ФОРМАТ ДАТЫ !!!
-        // Цикл перебора Мапы, поиска по localDate задач и вывод списка......................
+        //System.out.println(localDate);
+    return localDate;
     }
     public static void tmp(Scanner scanner) {
         definePeriodicity(scanner);

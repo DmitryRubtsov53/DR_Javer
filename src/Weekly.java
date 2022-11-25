@@ -8,11 +8,11 @@ public class Weekly extends Task {
         super(taskName, descript, type, dataActivity, periodicity);
     }
 
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//           return this.dataActivity.toLocalDate().equals(localDate)
-//               || this.dataActivity.toLocalDate().plusWeeks(1).equals(localDate);
-//    }
+    @Override
+    public boolean isTaskForDate(LocalDate localDate) {
+           return this.dataActivity.toLocalDate().equals(localDate)
+               || this.dataActivity.toLocalDate().plusWeeks(1).equals(localDate);
+    }
 
     @Override
     public void periodicity() {

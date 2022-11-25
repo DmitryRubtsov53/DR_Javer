@@ -19,15 +19,18 @@ public class CW2main {
                 if (scanner.hasNextInt()) {
                     int menu = scanner.nextInt();
                     switch (menu) {
-                        case 1:
+                        case 1:  // Ввод задачи пользователем
                             taskMaps.put(id,Service.inputTask(scanner));
                             break;
-                        case 2:
+                        case 2:  // Удаление задачи пользователем
                             taskMaps.remove(Service.removeTask(scanner));
                             printMap(taskMaps);
                             break;
-                        case 3:
-                            Service.toGetListTasks(scanner);
+                        case 3: // Получение списка задач пользователем на определённую дату
+                            for (HashMap.Entry<Integer, Task> pair: taskMaps.entrySet()) {
+                                System.out.println("Object " + pair.getKey() + ": "
+                                        + pair.getValue().isTaskForDate(Service.toGetListTasks(scanner)));
+                            }
                             break;
                         case 0:
                             break label;
