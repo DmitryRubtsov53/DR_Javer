@@ -12,8 +12,13 @@ public class Yearly extends Task {
     public boolean isTaskForDate() {
         LocalDate localDate = Service.toGetDateTasks();
         return dataActivity.toLocalDate().equals(localDate)              // без this работает так же !?
-                || (dataActivity.toLocalDate().isBefore(localDate) &&
-                dataActivity.toLocalDate().getDayOfYear() == localDate.getDayOfYear());
+             || (dataActivity.toLocalDate().isBefore(localDate) &&
+                dataActivity.toLocalDate().plusYears(localDate.getYear() -
+                     dataActivity.toLocalDate().getYear()).equals(localDate));
+
+//                dataActivity.toLocalDate().getDayOfYear() == localDate.getDayOfYear());
+//        return this.dataActivity.equals(localDate)
+//                ||
     }
 }
 
