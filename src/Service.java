@@ -1,97 +1,75 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Service {
 
+    private final static DateTimeFormatter TASK_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+    private final static DateTimeFormatter LIST_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     // п.1 Меню: Добавить задачу......................................................
     public static void printMenu() {
-        System.out.println("1. Добавить задачу" + "\n"
+        System.out.println("\n" + "-------- ЕЖЕДНЕВНИК. ГЛАВНОЕ МЕНЮ -----------" +"\n"
+                + "1. Добавить задачу" + "\n"
                 + "2. Удалить задачу" + "\n"
                 + "3. Получить задачи на указанный день" + "\n"
+                + "4. Показать все задачи Еженедельника" + "\n"
                 + "0. Выход");
     }
-    public static Task inputTask(Scanner scanner) {  // Ввод задачи пользователем.
-
-        String periodicity = definePeriodicity(scanner);
+    public static Task inputTask() {  // Ввод задачи пользователем.
+        Scanner scanner = new Scanner(System.in);
+        String taskName = enterName(),
+                description = enterDescript(),
+                type = defineType(),
+                periodicity = definePeriodicity(scanner);
+        LocalDateTime dateActivity = defineDateTime(scanner);
         switch (periodicity) {
-            case "Однократная":
-                Task task1 = new OneOff(null, null, null, null, null);
-                // передать параметр в Мапу..................
-                task1.setTaskName(enterName(scanner));
-                task1.setDescript(enterDescript(scanner));
-                task1.setType(defineType(scanner));
-                task1.setDataActivity(defineDateTime(scanner));
-                task1.setPeriodicity(periodicity);
-                return task1;
-            case "Ежедневная":
-                Task task2 = new EveryDay(null, null, null, null, null);
-                // передать параметр в Мапу..................
-                task2.setTaskName(enterName(scanner));
-                task2.setDescript(enterDescript(scanner));
-                task2.setType(defineType(scanner));
-                task2.setDataActivity(defineDateTime(scanner));
-                task2.setPeriodicity(periodicity);
-                return task2;
-            case "Еженедельная":
-                Task task3 = new Weekly(null, null, null, null, null);
-                // передать параметр в Мапу..................
-                task3.setTaskName(enterName(scanner));
-                task3.setDescript(enterDescript(scanner));
-                task3.setType(defineType(scanner));
-                task3.setDataActivity(defineDateTime(scanner));
-                task3.setPeriodicity(periodicity);
-                return task3;
-            case "Ежемесячная":
-                Task task4 = new Monthly(null, null, null, null, null);
-                // передать параметр в Мапу..................
-                task4.setTaskName(enterName(scanner));
-                task4.setDescript(enterDescript(scanner));
-                task4.setType(defineType(scanner));
-                task4.setDataActivity(defineDateTime(scanner));
-                task4.setPeriodicity(periodicity);
-                return task4;
-            case "Ежегодная":
-                Task task5 = new Yearly(null, null, null, null, null);
-                // передать параметр в Мапу..................
-                task5.setTaskName(enterName(scanner));
-                task5.setDescript(enterDescript(scanner));
-                task5.setType(defineType(scanner));
-                task5.setDataActivity(defineDateTime(scanner));
-                task5.setPeriodicity(periodicity);
-                return task5;
+            case "1":
+                     return new OneOff(taskName, description, type, dateActivity, "Однократная");
+            case "2":
+                     return new EveryDay(taskName, description, type, dateActivity, "Ежедневная");
+            case "3":
+                    return new Weekly(taskName, description, type, dateActivity, "Еженедельная");
+            case "4":
+                    return new Monthly(taskName, description, type, dateActivity, "Ежемесячная");
+            case "5":
+                    return new Yearly(taskName, description, type, dateActivity, "Ежегодная");
             default:
-                Task task6 = new Yearly("Только", "винтовка", "рождает власть!", null, "@ Мао Дзедун.");
-                return task6;
+                    return new Yearly("Только", "винтовка", "рождает власть!",
+                                                                          null, "@ Мао Дзэдун.");
         }
     }
-    public static String enterDescript(Scanner scanner) {
+    public static String enterDescript() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Введите описание задачи: ");
         String descript = scanner.nextLine();
+        System.out.println("----------------------------------------------");
         if (descript == null || descript.isBlank()) {
             //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
             System.out.println("Название задачи введено не корректно! Повторите всё снова.");
-            enterDescript(scanner);
+            enterDescript();
         }
         return descript;
     }
-    public static String enterName(Scanner scanner) {
+    public static String enterName() {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Введите название задачи: ");
         String taskName = scanner.nextLine();
         if (taskName == null || taskName.isBlank()) {
             //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
             System.out.println("Название задачи введено не корректно! Повторите всё снова.");
-            enterName(scanner);
+            enterName();
         }
         return taskName;
     }
-    public static String defineType(Scanner scanner) {
-        System.out.print("Выберите тип задачи или введите № пункта меню: " + "\n"
-                + "1. Личная" + "\n" + "2. Рабочая" + "\n");
+    public static String defineType() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print( "1. Личная" + "\n" + "2. Рабочая" + "\n" +
+                          "Выберите тип задачи или введите № пункта меню: ");
         String type = scanner.nextLine();
+        System.out.println("----------------------------------------------");
         if ( type.equals("1") || type.equals("Личная")) {
             type = "Личная";
         } else if (type.equals("2") || type.equals("Рабочая")) {
@@ -99,32 +77,24 @@ public class Service {
         } else {
             //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
             System.out.println("Тип задачи введен не верно! Повторите всё снова.");
-            defineType(scanner);
+            defineType();
             }
-        System.out.println("Тип задачи: " + type);
         return type;
-    }
-    public static LocalDateTime defineDateTime(Scanner scanner) {
-        System.out.print("Введите дату и время 1-й активации задачи (в формате yyyy-MM-ddTHH:mm:ss): ");
-        LocalDateTime dateActivity = LocalDateTime.parse(scanner.nextLine());
-
-        // Как обработать ошибку ввода с отсылом на старт этого метода ?
-
-        System.out.println("Дата и время активации задачи: " + dateActivity);
-        return dateActivity;
     }
 
     public static String definePeriodicity(Scanner scanner) {
+
         String periodicity;
-        System.out.print("Однократная" + "\n"
-                + "Ежедневная" + "\n"
-                + "Еженедельная" + "\n"
-                + "Ежемесячная" + "\n"
-                + "Ежегодная" + "\n"
-                + "Выберите периодичность задачи, указанную в меню: ");
+        System.out.print("1. Однократная" + "\n"
+                + "2. Ежедневная" + "\n"
+                + "3. Еженедельная" + "\n"
+                + "4. Ежемесячная" + "\n"
+                + "5. Ежегодная" + "\n"
+                + "Выберите периодичность задачи и введите № пункта меню: ");
         String period = scanner.nextLine();
-        if (!(period.equals("Однократная") || period.equals("Ежедневная") ||period.equals("Еженедельная")
-                ||period.equals("Ежемесячная") ||period.equals("Ежегодная"))) {
+        System.out.println("----------------------------------------------");
+        if (!(period.equals("1") || period.equals("2") ||period.equals("3")
+                ||period.equals("4") ||period.equals("5"))) {
             //throw new RuntimeException("Периодичность задачи введен не верно! Повторите.");
             System.out.println("Периодичность задачи введен не верно! Повторите всё снова.");
             definePeriodicity(scanner);
@@ -142,13 +112,37 @@ public class Service {
         System.out.println("Задача с id " + idTmp + " удалена из Ежедневника." + "\n" );
         return idTmp;
     }
+    public static LocalDateTime defineDateTime(Scanner scanner) {
+
+        while (true) {
+            try {
+                System.out.print("Введите дату и время 1-й активации задачи (в формате dd.MM.yyyy HH:mm): ");
+                String dateActivity = scanner.nextLine();
+                System.out.println("----------------------------------------------");
+                return LocalDateTime.parse(dateActivity, TASK_DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Ведены не правильно дата и время! Повторите ввод.");
+            }
+        }
+    }
+    //LocalDateTime dateActivity = LocalDateTime.parse(scanner.nextLine());
+    // Введите дату и время 1-й активации задачи (в формате yyyy-MM-ddTHH:mm:ss
+    // Как обработать ошибку ввода с отсылом на старт этого метода ?
+    //        return dateActivity;
 
     // п.3 Меню: Получить задачи на указанный день ......... ....................................
-    public static LocalDate toGetListTasks(Scanner scanner) {  // Получение списка задачи на заданную дату.
-        System.out.print("Введите дату (yyyy-MM-dd) для получения списка задач: ");
-        LocalDate localDate = LocalDate.parse(scanner.nextLine());
-        //System.out.println(localDate);
-    return localDate;
+    public static LocalDate toGetDateTasks() {  // Получение даты списка задач.
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.print("Введите дату (в формате dd.MM.yyyy) для получения списка задач: ");
+                String localDate = scanner.nextLine();
+                //LocalDate localDate = LocalDate.parse();
+                return LocalDate.parse(localDate, LIST_DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Дата введена не правильно! Повторите ввод.");
+            }
+        }
     }
     public static void tmp(Scanner scanner) {
         definePeriodicity(scanner);
@@ -159,94 +153,58 @@ public class Service {
 
 
 
-
-
-
-
-//    String periodicity = null;
-//        System.out.print("1. Однократная" + "\n"
-//                + "2. Ежедневная" + "\n"
-//                + "3. Еженедельная" + "\n"
-//                + "4. Ежемесячная" + "\n"
-//                + "5. Ежегодная" + "\n"
-//                + "Выберите периодичность задачи и введите № пункта меню: ");
-//    String repeat = scanner.nextLine();
-//        if (repeat.equals("1") || repeat.equals("Однократная")) {
-//        periodicity = "Однократная";
-//        // передать параметр в Мапу..................
-//        System.out.println("Периодичность задачи: " + periodicity + "\n");
-////            return periodicity;
-//    } else if (repeat.equals("2") || repeat.equals("Ежедневная")) {
-//        periodicity = "Ежедневная";
-//        // передать параметр в Мапу..................
-//        System.out.println("Периодичность задачи: " + periodicity + "\n");
-////            return periodicity;
-//    } else if (repeat.equals("3") || repeat.equals("Еженедельная")) {
-//        periodicity = "Еженедельная";
-//        // передать параметр в Мапу..................
-//        System.out.println("Периодичность задачи: " + periodicity + "\n");
-////            return periodicity;
-//    } else if (repeat.equals("4") || repeat.equals("Ежемесячная")) {
-//        periodicity = "Ежемесячная";
-//        // передать параметр в Мапу..................
-//        System.out.println("Периодичность задачи: " + periodicity + "\n");
-////            return periodicity;
-//    } else if (repeat.equals("5") || repeat.equals("Ежегодная")) {
-//        periodicity = "Ежегодная";
-//        // передать параметр в Мапу..................
-//        System.out.println("Периодичность задачи: " + periodicity + "\n");
+// СТАРЫЙ ВАРИАНТ. ПОЧЕМУ-ТО НЕ РАБОТАЛ ?!
+//    public static Task inputTask(Scanner scanner) {  // Ввод задачи пользователем.
 //
-//    }
-//        return periodicity;
-//}
-//-----------------------------------------
-//String periodicity;
-//        System.out.print( "1. Однократная" + "\n"
-//                + "2. Ежедневная" + "\n"
-//                + "3. Еженедельная" + "\n"
-//                + "4. Ежемесячная" + "\n"
-//                + "5. Ежегодная" + "\n"
-//                + "Выберите периодичность задачи и введите № пункта меню: " );
-//                String period = scanner.nextLine();
-//                int repeat = Integer.parseInt(period.trim());
-////        System.out.println(repeat);
-//                switch (repeat) {                        //int i = Integer.parseInt(s.trim());
-//                case 1:
-//                periodicity = "Однократная";
+//        String periodicity = definePeriodicity(scanner);
+//        switch (periodicity) {
+//            case "Однократная":
+//                Task task1 = new OneOff(null, null, null, null, null);
 //                // передать параметр в Мапу..................
-//                System.out.println("Периодичность задачи: " + periodicity + "\n");
-//                break;
-//
-//                case 2:
-//                periodicity = "Ежедневная";
+//                task1.setTaskName(enterName(scanner));
+//                task1.setDescript(enterDescript(scanner));
+//                task1.setType(defineType(scanner));
+//                task1.setDataActivity(defineDateTime(scanner));
+//                task1.setPeriodicity(periodicity);
+//                return task1;
+//            case "Ежедневная":
+//                Task task2 = new EveryDay(null, null, null, null, null);
 //                // передать параметр в Мапу..................
-//                System.out.println("Периодичность задачи: " + periodicity + "\n" );
-//                break;
-//
-//                case 3:
-//                periodicity = "Еженедельная";
+//                task2.setTaskName(enterName(scanner));
+//                task2.setDescript(enterDescript(scanner));
+//                task2.setType(defineType(scanner));
+//                task2.setDataActivity(defineDateTime(scanner));
+//                task2.setPeriodicity(periodicity);
+//                return task2;
+//            case "Еженедельная":
+//                Task task3 = new Weekly(null, null, null, null, null);
 //                // передать параметр в Мапу..................
-//                System.out.println("Периодичность задачи: " + periodicity + "\n" );
-//                break;
-//
-//                case 4:
-//                periodicity = "Ежемесячная";
+//                task3.setTaskName(enterName(scanner));
+//                task3.setDescript(enterDescript(scanner));
+//                task3.setType(defineType(scanner));
+//                task3.setDataActivity(defineDateTime(scanner));
+//                task3.setPeriodicity(periodicity);
+//                return task3;
+//            case "Ежемесячная":
+//                Task task4 = new Monthly(null, null, null, null, null);
 //                // передать параметр в Мапу..................
-//                System.out.println("Периодичность задачи: " + periodicity + "\n" );
-//
-//                break;
-//                case 5:
-//                periodicity = "Ежегодная";
+//                task4.setTaskName(enterName(scanner));
+//                task4.setDescript(enterDescript(scanner));
+//                task4.setType(defineType(scanner));
+//                task4.setDataActivity(defineDateTime(scanner));
+//                task4.setPeriodicity(periodicity);
+//                return task4;
+//            case "Ежегодная":
+//                Task task5 = new Yearly(null, null, null, null, null);
 //                // передать параметр в Мапу..................
-//                System.out.println("Периодичность задачи: " + periodicity + "\n" );
-//
-//                break;
-//default:
-//        throw new RuntimeException("Периодичность задачи введен не верно! Повторите.");
-////                System.out.println("Периодичность задачи введен не верно! Повторите всё снова.");
-////                tmp(scanner);
-////                definePeriodicity(scanner);
-//
+//                task5.setTaskName(enterName(scanner));
+//                task5.setDescript(enterDescript(scanner));
+//                task5.setType(defineType(scanner));
+//                task5.setDataActivity(defineDateTime(scanner));
+//                task5.setPeriodicity(periodicity);
+//                return task5;
+//            default:
+//                Task task6 = new Yearly("Только", "винтовка", "рождает власть!", null, "@ Мао Дзедун.");
+//                return task6;
 //        }
-//        return periodicity;
-
+//    }
