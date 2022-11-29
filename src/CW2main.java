@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -25,12 +26,14 @@ public class CW2main {
                             printMap(taskMaps);
                             break;
                         case 3:   // Получение списка задач пользователем на определённую дату
+                            LocalDate LD = Service.toGetDateTasks();  //  добавил, т.к. иначе происходил запрос
+                                                                      // даты списка для каждой задачи в нём!
                             for (HashMap.Entry<Integer, Task> pair: taskMaps.entrySet()) {
-                                if (pair.getValue().isTaskForDate())
+                                if (pair.getValue().isTaskForDate(LD))
                                    System.out.println(pair.getKey() + ": " + pair.getValue());
                             }
                             break;
-                        case 4:   // Показать все задачи Еженедельника
+                        case 4:   // Показать все активные задачи Еженедельника
                             printMap(taskMaps);
                             break;
                         case 0:
@@ -47,8 +50,9 @@ public class CW2main {
   } // main -----------------------------------------------------------------
 
     public static void printMap(HashMap<Integer, Task> taskMaps) {
+        System.out.println("\n" + "Список активных задач Ежедневника: ");
         for (HashMap.Entry<Integer, Task> pair: taskMaps.entrySet()) {
-            System.out.println("Object " + pair.getKey() + ": " + pair.getValue());
+            System.out.println("id_" + pair.getKey() + ": " + pair.getValue());
         }
     }
 } // Class

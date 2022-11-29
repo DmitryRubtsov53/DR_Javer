@@ -10,8 +10,8 @@ public class Weekly extends Task {
     }
 
     @Override
-    public boolean isTaskForDate() {
-        LocalDate localDate = Service.toGetDateTasks();
+    public boolean isTaskForDate(LocalDate localDate) {
+//        LocalDate localDate = Service.toGetDateTasks();
            return dataActivity.toLocalDate().equals(localDate)
                || (dataActivity.toLocalDate().isBefore(localDate) &&
                   dataActivity.toLocalDate().getDayOfWeek().equals(localDate.getDayOfWeek()));

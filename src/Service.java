@@ -12,79 +12,86 @@ public class Service {
     // п.1 Меню: Добавить задачу......................................................
     public static void printMenu() {
         System.out.println("\n" + "-------- ЕЖЕДНЕВНИК. ГЛАВНОЕ МЕНЮ -----------" +"\n"
-                + "1. Добавить задачу" + "\n"
-                + "2. Удалить задачу" + "\n"
-                + "3. Получить задачи на указанный день" + "\n"
-                + "4. Показать все задачи Еженедельника" + "\n"
-                + "0. Выход");
+                + "1. Добавить задачу." + "\n"
+                + "2. Удалить задачу." + "\n"
+                + "3. Получить задачи на указанный день." + "\n"
+                + "4. Показать все задачи Еженедельника." + "\n"
+                + "0. ВЫХОД из приложения.");
     }
     public static Task inputTask() {  // Ввод задачи пользователем.
         Scanner scanner = new Scanner(System.in);
-        String taskName = enterName(),
-                description = enterDescript(),
-                type = defineType(),
-                periodicity = definePeriodicity(scanner);
-        LocalDateTime dateActivity = defineDateTime(scanner);
-        switch (periodicity) {
-            case "1":
-                     return new OneOff(taskName, description, type, dateActivity, "Однократная");
-            case "2":
-                     return new EveryDay(taskName, description, type, dateActivity, "Ежедневная");
-            case "3":
-                    return new Weekly(taskName, description, type, dateActivity, "Еженедельная");
-            case "4":
-                    return new Monthly(taskName, description, type, dateActivity, "Ежемесячная");
-            case "5":
-                    return new Yearly(taskName, description, type, dateActivity, "Ежегодная");
-            default:
-                    return new Yearly("Только", "винтовка", "рождает власть!",
-                                                                          null, "@ Мао Дзэдун.");
+
+                String taskName = enterName(),
+                        description = enterDescript(),
+                        type = defineType(),
+                        periodicity = definePeriodicity(scanner);
+                LocalDateTime dateActivity = defineDateTime(scanner);
+
+                switch (periodicity) {
+                    case "1":
+                        return new OneOff(taskName, description, type, dateActivity, "Однократная");
+                    case "2":
+                        return new EveryDay(taskName, description, type, dateActivity, "Ежедневная");
+                    case "3":
+                        return new Weekly(taskName, description, type, dateActivity, "Еженедельная");
+                    case "4":
+                        return new Monthly(taskName, description, type, dateActivity, "Ежемесячная");
+                    case "5":
+                        return new Yearly(taskName, description, type, dateActivity, "Ежегодная");
+                    default:
+                        return new Yearly("Винтовка", " рождает", " власть!",
+                                null, "@ Мао Дзэдун.");
+                }
         }
-    }
     public static String enterDescript() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите описание задачи: ");
-        String descript = scanner.nextLine();
-        System.out.println("----------------------------------------------");
-        if (descript == null || descript.isBlank()) {
-            //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
-            System.out.println("Название задачи введено не корректно! Повторите всё снова.");
-            enterDescript();
+        while (true) {
+            try {
+                System.out.print("Введите описание задачи: ");
+                String descript = scanner.nextLine();
+                System.out.println("----------------------------------------------");
+                if (descript != null || !descript.isBlank())
+                    return descript;
+            } catch (Exception e) {
+                System.out.println("Название задачи введено не корректно! Повторите ввод.");
+                }
         }
-        return descript;
     }
     public static String enterName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите название задачи: ");
-        String taskName = scanner.nextLine();
-        if (taskName == null || taskName.isBlank()) {
-            //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
-            System.out.println("Название задачи введено не корректно! Повторите всё снова.");
-            enterName();
+        while (true) {
+            try {
+                System.out.print("Введите название задачи: ");
+                String taskName = scanner.nextLine();
+                if (taskName != null || !taskName.isBlank())
+                    return taskName;
+            } catch (Exception e) {
+                System.out.println("Название задачи введено не корректно! Повторите ввод.");
+                }
         }
-        return taskName;
     }
     public static String defineType() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print( "1. Личная" + "\n" + "2. Рабочая" + "\n" +
-                          "Выберите тип задачи или введите № пункта меню: ");
+
+        while (true) {
+            System.out.print( "1. Личная" + "\n" + "2. Рабочая" + "\n" +
+                    "Выберите тип задачи и введите № пункта меню: ");
         String type = scanner.nextLine();
         System.out.println("----------------------------------------------");
-        if ( type.equals("1") || type.equals("Личная")) {
-            type = "Личная";
-        } else if (type.equals("2") || type.equals("Рабочая")) {
-            type = "Рабочая";
-        } else {
-            //    throw new RuntimeException("Тип задачи введен не верно! Повторите.");
-            System.out.println("Тип задачи введен не верно! Повторите всё снова.");
-            defineType();
+        switch (type) {
+            case "1":
+                return "Личная";
+            case "2":
+                return "Рабочая";
+            default:
+                System.out.println("Тип задачи введен не верно! Повторите ввод.");
+                break;
             }
-        return type;
+        }
     }
-
     public static String definePeriodicity(Scanner scanner) {
-
-        String periodicity;
+        while (true) {
+        //String periodicity;
         System.out.print("1. Однократная" + "\n"
                 + "2. Ежедневная" + "\n"
                 + "3. Еженедельная" + "\n"
@@ -93,30 +100,30 @@ public class Service {
                 + "Выберите периодичность задачи и введите № пункта меню: ");
         String period = scanner.nextLine();
         System.out.println("----------------------------------------------");
-        if (!(period.equals("1") || period.equals("2") ||period.equals("3")
-                ||period.equals("4") ||period.equals("5"))) {
-            //throw new RuntimeException("Периодичность задачи введен не верно! Повторите.");
-            System.out.println("Периодичность задачи введен не верно! Повторите всё снова.");
-            definePeriodicity(scanner);
-            //  tmp(scanner);
-        }
-        return period;
-    }
 
+            switch (period) {
+                case "1": return "1";
+                case "2": return "2";
+                case "3": return "3";
+                case "4": return "4";
+                case "5": return "5";
+                default:
+                    System.out.println("Периодичность задачи введен не верно! Повторите ввод.");
+                    break;
+            }
+        }
+    }
     // п.2 Меню: Удаление задачи по ID.........................................................
     public static int removeTask(Scanner scanner) {  // Удаление задачи пользователем.
-
         System.out.print("Введите id задачи для её удаления: ");
         int idTmp = scanner.nextInt();
-        // Цикл перебора Мапы, поиска по id == idTmp и удаления задачи......................
         System.out.println("Задача с id " + idTmp + " удалена из Ежедневника." + "\n" );
         return idTmp;
     }
-    public static LocalDateTime defineDateTime(Scanner scanner) {
-
+    public static LocalDateTime defineDateTime(Scanner scanner) {  // Получаем дату АКТИВАЦИИ задачи.
         while (true) {
             try {
-                System.out.print("Введите дату и время 1-й активации задачи (в формате dd.MM.yyyy HH:mm): ");
+                System.out.print("Введите дату и время АКТИВАЦИИ задачи (в формате dd.MM.yyyy HH:mm): ");
                 String dateActivity = scanner.nextLine();
                 System.out.println("----------------------------------------------");
                 return LocalDateTime.parse(dateActivity, TASK_DATE_TIME_FORMATTER);
@@ -125,11 +132,6 @@ public class Service {
             }
         }
     }
-    //LocalDateTime dateActivity = LocalDateTime.parse(scanner.nextLine());
-    // Введите дату и время 1-й активации задачи (в формате yyyy-MM-ddTHH:mm:ss
-    // Как обработать ошибку ввода с отсылом на старт этого метода ?
-    //        return dateActivity;
-
     // п.3 Меню: Получить задачи на указанный день ......... ....................................
     public static LocalDate toGetDateTasks() {  // Получение даты списка задач.
         Scanner scanner = new Scanner(System.in);
@@ -137,16 +139,12 @@ public class Service {
             try {
                 System.out.print("Введите дату (в формате dd.MM.yyyy) для получения списка задач: ");
                 String localDate = scanner.nextLine();
-                //LocalDate localDate = LocalDate.parse();
                 return LocalDate.parse(localDate, LIST_DATE_FORMATTER);
             } catch (DateTimeParseException e) {
                 System.out.println("Дата введена не правильно! Повторите ввод.");
             }
         }
-    }
-    public static void tmp(Scanner scanner) {
-        definePeriodicity(scanner);
-    }
+    } //.........................................................................................
 
 } // Class -----------------------------------------------------------------------
 

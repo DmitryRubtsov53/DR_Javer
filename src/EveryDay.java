@@ -9,8 +9,8 @@ public class EveryDay extends Task {
     }
 
     @Override
-    public boolean isTaskForDate() {
-        LocalDate localDate = Service.toGetDateTasks();
+    public boolean isTaskForDate(LocalDate localDate) {
+//        LocalDate localDate = Service.toGetDateTasks();
             return dataActivity.toLocalDate().isBefore(localDate)
                 || dataActivity.toLocalDate().equals(localDate);
     }

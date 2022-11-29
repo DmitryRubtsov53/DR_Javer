@@ -9,16 +9,16 @@ public class Yearly extends Task {
         super(taskName, descript, type, dataActivity, periodicity);
     }
     @Override
-    public boolean isTaskForDate() {
-        LocalDate localDate = Service.toGetDateTasks();
+    public boolean isTaskForDate(LocalDate localDate) {
+//        LocalDate localDate = Service.toGetDateTasks();
         return dataActivity.toLocalDate().equals(localDate)              // без this работает так же !?
              || (dataActivity.toLocalDate().isBefore(localDate) &&
                 dataActivity.toLocalDate().plusYears(localDate.getYear() -
                      dataActivity.toLocalDate().getYear()).equals(localDate));
 
-//                dataActivity.toLocalDate().getDayOfYear() == localDate.getDayOfYear());
 //        return this.dataActivity.equals(localDate)
-//                ||
+//                ||dataActivity.toLocalDate().getDayOfYear() == localDate.getDayOfYear()); - ПРОПУСКАЕТ ВИСОКОСНЫЕ ГОДА
+//                Т.К. ВЫДАЕТ № ДНЯ ГОДА, А В ВИСОКОСНОМ ОН СМЕЩАЕТСЯ !!!
     }
 }
 
