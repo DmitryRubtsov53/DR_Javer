@@ -12,9 +12,6 @@ public abstract class Task {
     public  LocalDateTime dataActivity;
     private String periodicity;
 
-//    private final Integer id ;
-//    private static int counter = 1;
-
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public Task (String taskName, String descript, String type, LocalDateTime dataActivity, String periodicity) {
@@ -23,8 +20,6 @@ public abstract class Task {
         setType(type);
         setDataActivity(dataActivity);
         setPeriodicity(periodicity);
-//        this.id = counter;
-//        counter++;
     }
 
     // Getters ---------------------------------------------------------------------------
@@ -37,8 +32,6 @@ public abstract class Task {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-//    public Integer getId() { return id;    }
-//    public static int getCounter() { return counter; }
 
 // Setters ----------------------------------------------------------------------------
 
@@ -79,10 +72,7 @@ public abstract class Task {
         return Objects.hash(taskName, descript, type, dataActivity, periodicity);
     }
 
-    // public abstract boolean isTaskForTomorrow(LocalDate localDate);
-    // localDate - дата дня, для которого нужен список дел.
-    public abstract void periodicity();
-
+     public abstract boolean isTaskForDate(LocalDate localDate);
 
 }
 

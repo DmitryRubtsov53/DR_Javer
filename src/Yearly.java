@@ -1,21 +1,24 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Yearly extends Task {
 
-
+    Scanner scanner = new Scanner(System.in);
     public Yearly(String taskName, String descript, String type, LocalDateTime dataActivity, String periodicity) {
         super(taskName, descript, type, dataActivity, periodicity);
     }
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//              return this.dataActivity.toLocalDate().equals(localDate)
-//                  || this.dataActivity.toLocalDate().plusYears(1).equals(localDate);
-//    }
-
     @Override
-    public void periodicity() {
+    public boolean isTaskForDate(LocalDate localDate) {
+//        LocalDate localDate = Service.toGetDateTasks();
+        return dataActivity.toLocalDate().equals(localDate)              // без this работает так же !?
+             || (dataActivity.toLocalDate().isBefore(localDate) &&
+                dataActivity.toLocalDate().plusYears(localDate.getYear() -
+                     dataActivity.toLocalDate().getYear()).equals(localDate));
 
+//        return this.dataActivity.equals(localDate)
+//                ||dataActivity.toLocalDate().getDayOfYear() == localDate.getDayOfYear()); - ПРОПУСКАЕТ ВИСОКОСНЫЕ ГОДА
+//                Т.К. ВЫДАЕТ № ДНЯ ГОДА, А В ВИСОКОСНОМ ОН СМЕЩАЕТСЯ !!!
     }
 }
 

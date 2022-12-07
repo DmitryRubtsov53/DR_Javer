@@ -1,23 +1,17 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Scanner;
 
 public class EveryDay extends Task {
-
-
-    public EveryDay(String taskName, String descript, String type, String dataActivity, String periodicity) {
+    Scanner scanner = new Scanner(System.in);
+    public EveryDay(String taskName, String descript, String type, LocalDateTime dataActivity, String periodicity) {
         super(taskName, descript, type, dataActivity, periodicity);
     }
 
-//    @Override
-//    public boolean isTaskForTomorrow(LocalDate localDate) {
-//            return this.dataActivity.toLocalDate().isBefore(localDate)
-//                || this.dataActivity.toLocalDate().equals(localDate);
-//    }
-
     @Override
-    public void periodicity() {
-
+    public boolean isTaskForDate(LocalDate localDate) {
+//        LocalDate localDate = Service.toGetDateTasks();
+            return dataActivity.toLocalDate().isBefore(localDate)
+                || dataActivity.toLocalDate().equals(localDate);
     }
 }
